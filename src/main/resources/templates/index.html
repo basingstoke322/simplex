@@ -1,10 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Simplex</title>
+    <link th:href="@{/bootstrap.min.css}" rel="stylesheet" />
+    <link th:href="@{/style.css}" rel="stylesheet" />
 </head>
 <body>
-
+    <div class="container-fluid d-flex justify-content-center align-items-center h-100 p-0" id="app">
+        <form class="form-inline" th:action="@{/matrix}" th:object="${matrix}" method="post" action="#">
+            <input type="text" class="form-control mb-2 mr-sm-2" id="raw_count" placeholder="Виды сырья" th:field="*{rawCount}">
+            <input type="text" class="form-control mb-2 mr-sm-2" id="part_count" placeholder="Виды деталей" th:field="*{partCount}">
+            <button type="submit" class="btn btn-outline-primary mb-2">Далее</button>
+        </form>
+    </div>
 </body>
 </html>

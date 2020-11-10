@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Simplex</title>
+    <link th:href="@{/bootstrap.min.css}" rel="stylesheet" />
+    <link th:href="@{/style.css}" rel="stylesheet" />
+</head>
+<body>
+    <form class="container-fluid d-flex justify-content-center align-items-center h-100 p-0" id="app" method="post" th:action="@{/answer}" th:object="${matrix}">
+        <table>
+            <tr th:each="i: ${matrix.rawIter}">
+                <td th:each="j: ${matrix.partIter}">
+                    <input class="form-control col" style="max-width: 100px;" th:placeholder="${'x'+i+j}" th:name="${i+j}">
+                </td>
+            </tr>
+        </table>
+        <button type="submit" class="btn btn-outline-primary" style="margin-left: 2rem;">Далее</button>
+    </form>
+</body>
+</html>
