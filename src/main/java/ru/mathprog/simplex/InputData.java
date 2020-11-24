@@ -1,15 +1,14 @@
 package ru.mathprog.simplex;
 
-import org.springframework.lang.NonNull;
-
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Iterator;
 
-public class Matrix implements Serializable, Iterable<Cell> {
-    private Integer rawCount;
-    private Integer partCount;
+public class InputData implements Serializable, Iterable<Cell> {
+    private Integer rows;
+    private Integer cols;
     Cell[][] matrix;
+    Cell[] prices;
+    Cell[] counts;
 
     private Iterator<String> makeIter(Integer count){
         return new Iterator<>() {
@@ -29,26 +28,34 @@ public class Matrix implements Serializable, Iterable<Cell> {
     }
 
     public void init(){
-        matrix = new Cell[this.rawCount][this.partCount];
-        for (int i = 0; i < this.rawCount; i++) {
-            for (int j = 0; j < this.partCount; j++) {
+        matrix = new Cell[this.rows][this.cols];
+        for (int i = 0; i < this.rows; i++) {
+            for (int j = 0; j < this.cols; j++) {
                 matrix[i][j] = new Cell(i + Integer.toString(j));
             }
         }
+        counts = new Cell[this.cols];
+        for(int i = 0; i < this.cols; i++) {
+            counts[i] = new Cell(0.f);
+        }
+        prices = new Cell[this.rows];
+        for(int i = 0; i < this.rows; i++) {
+            prices[i] = new Cell(0.f);
+        }
     }
 
-    public void setPartCount(Integer partCount) {
-        this.partCount = partCount;
+    public void setCols(Integer cols) {
+        this.cols = cols;
     }
 
-    public Integer getPartCount() { return partCount; }
+    public Integer getCols() { return cols; }
 
-    public void setRawCount(Integer rawCount) {
-        this.rawCount = rawCount;
+    public void setRows(Integer rows) {
+        this.rows = rows;
     }
 
-    public Integer getRawCount() {
-        return rawCount;
+    public Integer getRows() {
+        return rows;
     }
 
     public void setMatrix(Cell[][] matrix) {
@@ -72,8 +79,8 @@ public class Matrix implements Serializable, Iterable<Cell> {
             @Override
             public Cell next() {
                 Cell res = matrix[i][j];
-                if (j.equals(partCount - 1)) {
-                    if (i.equals(rawCount - 1)) {
+                if (j.equals(cols - 1)) {
+                    if (i.equals(rows - 1)) {
                         b = false;
                     }
                     i++;
@@ -87,17 +94,29 @@ public class Matrix implements Serializable, Iterable<Cell> {
     }
 
     public Iterator<String> getRawIter(){
-        return makeIter(rawCount);
+        return makeIter(rows);
     }
 
     public Iterator<String> getPartIter() {
-        return makeIter(partCount);
+        return makeIter(cols);
     }
 
-    public void setCell(String s, String val) {
+    public void setMatrixCell(String s, String val) {
         String[] arr = s.split("");
-        int i = Integer.parseInt(arr[0]);
-        int j = Integer.parseInt(arr[1]);
+        int i = Integer.parseInt(arr[1]) - 1;
+        int j = Integer.parseInt(arr[2]) - 1;
         this.matrix[i][j].setValue(val);
+    }
+
+    public void setPricesCell(String s, String val) {
+        String[] arr = s.split("");
+        int i = Integer.parseInt(arr[1]) - 1;
+        this.prices[i].setValue(val);
+    }
+
+    public void setCountsCell(String s, String val) {
+        String[] arr = s.split("");
+        int j = Integer.parseInt(arr[1]) - 1;
+        this.counts[j].setValue(val);
     }
 }

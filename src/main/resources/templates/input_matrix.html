@@ -7,15 +7,31 @@
     <link th:href="@{/style.css}" rel="stylesheet" />
 </head>
 <body>
+    <div style="position: absolute; left: 10px; top: 10px">
+        <p>Aij - коэффиценты матрицы стоимости</p>
+        <p>Pi  - стоимость сырья</p>
+        <p>Cj  - количество требуемых деталей</p>
+    </div>
     <form class="container-fluid d-flex justify-content-center align-items-center h-100 p-0" id="app" method="post" th:action="@{/answer}" th:object="${matrix}">
         <table>
             <tr th:each="i: ${matrix.rawIter}">
                 <td th:each="j: ${matrix.partIter}">
-                    <input class="form-control col" style="max-width: 100px;" th:placeholder="${'x'+i+j}" th:name="${i+j}">
+                    <input class="form-control col" style="max-width: 100px;" th:placeholder="${'a'+i+j}" th:name="${'x'+i+j}">
+                </td>
+                <td>
+                    <input class="form-control col" style="max-width: 100px;" th:placeholder="${'p'+i}" th:name="${'p'+i}">
+                </td>
+            </tr>
+            <tr>
+                <td th:each="j: ${matrix.partIter}">
+                    <input class="form-control col" style="max-width: 100px;" th:placeholder="${'c'+j}" th:name="${'c'+j}">
                 </td>
             </tr>
         </table>
         <button type="submit" class="btn btn-outline-primary" style="margin-left: 2rem;">Далее</button>
     </form>
+    <script type="text/javascript">
+
+    </script>
 </body>
 </html>
