@@ -82,6 +82,14 @@ public class Simplex {
 
         sb.append("]");
 
+        for (int i = 0; i < current.rows; i++) {
+            float sum = 0;
+            for (int j = 0; j < current.cols; j++) {
+                sum += resArr.get(i * (current.rows - 1) + j);
+            }
+            sb.append(" Ресурс ").append(i + 1).append(": ").append(String.format("%.2f ", sum));
+        }
+
         result = sb.toString();
     }
 

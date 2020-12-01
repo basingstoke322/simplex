@@ -99,7 +99,7 @@ public class SimplexData {
 
     public ArrayList<ArrayList<String>> rowsIter() {
         ArrayList<ArrayList<String>> arr = new ArrayList<>();
-        for (int i = 0; i < rows + 1; i++) {
+        for (int i = 0; i < countArray.size() + 1; i++) {
             ArrayList<String> n = new ArrayList<>();
             arr.add(n);
             for (int j = 0; j < exprLength + 2; j++) {
@@ -108,7 +108,7 @@ public class SimplexData {
                     else if(j == 1) n.add("b");
                     else n.add(free.get(j - 2));
                 }
-                else if(i == rows) {
+                else if(i == countArray.size()) {
                     if(j == 1) n.add(String.format("%.2f", getCount(i - 1)));
                     else if(j == 0) n.add("F");
                     else n.add(String.format("%.2f", getPrice(j - 2)));

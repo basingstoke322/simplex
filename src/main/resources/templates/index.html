@@ -11,8 +11,33 @@
         <form class="form-inline" th:action="@{/matrix}" method="post" action="#">
             <input type="text" class="form-control mb-2 mr-sm-2" id="raw_count" placeholder="Виды сырья" th:name="rawCount">
             <input type="text" class="form-control mb-2 mr-sm-2" id="part_count" placeholder="Виды деталей" th:name="partCount">
-            <button type="submit" class="btn btn-outline-primary mb-2">Далее</button>
+            <button type="submit" class="btn btn-outline-primary mb-2" id="submit">Далее</button>
         </form>
     </div>
 </body>
+<script>
+    function checkForm(e) {
+        const in1 = document.getElementById("raw_count");
+        const in2 = document.getElementById("part_count");
+
+        in1.classList.remove("error");
+        in2.classList.remove("error");
+
+        if(in1.value == 0) {
+            in1.classList.add("error");
+            e.preventDefault();
+        }
+        if(in2.value == 0) {
+            in2.classList.add("error");
+            e.preventDefault();
+        }
+        if(in2.value >= in1.value) {
+            in1.classList.add("error");
+            in2.classList.add("error");
+            e.preventDefault();
+        }
+    }
+
+    document.getElementById("submit").addEventListener('click', checkForm, false)
+</script>
 </html>
