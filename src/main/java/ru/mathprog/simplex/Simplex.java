@@ -14,6 +14,8 @@ public class Simplex {
             SimplexData next = new SimplexData(current.rows, current.cols);
             int resCol = chooseCol(), resRow = chooseRow(resCol);
             float resElem = current.getElem(resRow, resCol);
+            current.resRow = resRow;
+            current.resCol = resCol;
 
             steps.add(current);
 
@@ -132,11 +134,21 @@ public class Simplex {
         return current.toString();
     }
 
-    public ArrayList<ArrayList<ArrayList<String>>> rowsIter() {
-        ArrayList<ArrayList<ArrayList<String>>> arr = new ArrayList<>();
-        for (SimplexData d: steps) {
-            arr.add(d.rowsIter());
+    public ArrayList rowsIter() {
+        class res {
+            public ArrayList<ArrayList<String>> res;
+            public String s;
         }
+
+        ArrayList<res> arr = new ArrayList<>();
+        for(int i = 0; i < steps.size(); i++) {
+            SimplexData d = steps.get(i);
+            res n = new res();
+            n.res = d.rowsIter();
+            n.s = "Разр. строка: " + (d.resRow + 1) + " Разр. столбец: " + (d.resCol + 1);
+            arr.add(n);
+        }
+        arr.get(arr.size() - 1).s = "";
         return arr;
     }
 }

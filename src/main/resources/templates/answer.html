@@ -7,11 +7,14 @@
     <link th:href="@{/style.css}" rel="stylesheet" />
 </head>
 <body class="container">
-    <table th:each="i: ${simplex.rowsIter()}" class="table">
-        <tr th:each="g: ${i}">
-            <td th:each="s: ${g}" th:text="${s}"></td>
-        </tr>
-    </table>
+    <div th:each="i: ${simplex.rowsIter()}">
+        <table class="table">
+            <tr th:each="g: ${i.res}">
+                <td th:each="s: ${g}" th:text="${s}"></td>
+            </tr>
+        </table>
+        <p th:text="${i.s}"></p>
+    </div>
     <p th:text="${simplex.result}"></p>
 </body>
 </html>

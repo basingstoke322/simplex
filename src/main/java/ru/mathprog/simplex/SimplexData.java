@@ -7,7 +7,7 @@ public class SimplexData {
     ArrayList<Float> priceArray;
     ArrayList<Float> countArray;
     ArrayList<String> basis, free;
-    Integer rows, cols, exprLength;
+    Integer rows, cols, exprLength, resCol = 0, resRow = 0;
 
     SimplexData(int rows, int cols){
         this.rows = rows;
